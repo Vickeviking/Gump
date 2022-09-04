@@ -41,6 +41,7 @@ int main()
 
     // initialize the window
     InitWindow(windowDimensions[0], windowDimensions[1], "Gump");
+    InitAudioDevice();
 
     // acceleration due to gravity (pixels/s)/s
     const int gravity{1'000};
@@ -98,9 +99,13 @@ int main()
     float fgX{};
     bool collision{};
 
+    Sound themeSong = LoadSound("textures/theme_song.wav");
+    PlaySound(themeSong);
+
     SetTargetFPS(60);
     while (!WindowShouldClose())
     {
+
         // delta time (time since last frame)
         const float dT{GetFrameTime()};
 
@@ -231,10 +236,14 @@ int main()
         // stop drawing
         EndDrawing();
     }
+    // unload
     UnloadTexture(scarfy);
     UnloadTexture(nebula);
     UnloadTexture(background);
     UnloadTexture(midground);
     UnloadTexture(forground);
+    UnloadSound(themeSong);
+    //close
+    CloseAudioDevice();
     CloseWindow();
 }
