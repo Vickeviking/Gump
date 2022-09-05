@@ -32,9 +32,10 @@ AnimData updateAnimData(AnimData data, float deltaTime, int maxFrame)
     return data;
 }
 
+
 int main()
 {
-    // array with window dimensions
+    // array wi]th window dimensions
     int windowDimensions[2];
     windowDimensions[0] = 854;
     windowDimensions[1] = 480;
@@ -106,6 +107,28 @@ int main()
     while (!WindowShouldClose())
     {
 
+        if((scarfyData.pos.x >= finishLine || collision == true) && IsKeyPressed(KEY_ENTER))
+        {
+            
+            StopSound(themeSong);
+                for(int i = 0; i < sizeOfNebulae; i++)
+                {
+                    nebulae[i].rec.x = 0.0;
+                    nebulae[i].rec.y = 0.0;
+                    nebulae[i].rec.width = nebula.width / 8;
+                    nebulae[i].rec.height = nebula.height / 8;
+                    nebulae[i].pos.y = windowDimensions[1] - nebula.height / 8;
+                    nebulae[i].frame = 0;
+                    nebulae[i].runningTime = 0.0;
+                    nebulae[i].updateTime = 0.0;
+
+                    nebulae[i].pos.x = windowDimensions[0] + i * 300 + 800;
+                   
+                } 
+                collision = false;
+                finishLine = nebulae[sizeOfNebulae-1].pos.x;
+                PlaySound(themeSong);
+        }
         // delta time (time since last frame)
         const float dT{GetFrameTime()};
 
@@ -215,10 +238,14 @@ int main()
         {
             // lose the game
             DrawText("Game Over!", (windowDimensions[0] / 4) + 100, (windowDimensions[1] / 2) - 40, 46, PURPLE);
+
+          
+
         }
         else if (scarfyData.pos.x >= finishLine)
         {
-            DrawText("You win!", (windowDimensions[0] / 4) + 100, (windowDimensions[1] / 2) - 40, 46, GREEN);
+            DrawText("You win!", (windowDimensions[0] / 4) + 100, (windowDimensions[1] / 2) - 40, 46, GREEN); StopSound(themeSong);
+               
         }
         else
         {
