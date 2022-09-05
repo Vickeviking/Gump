@@ -50,7 +50,7 @@ int main()
     // nebula variables
     Texture2D nebula = LoadTexture("textures/12_nebula_spritesheet.png");
 
-    const int sizeOfNebulae{20};
+    const int sizeOfNebulae{15};
     AnimData nebulae[sizeOfNebulae]{};
 
     for (int i = 0; i < sizeOfNebulae; i++)
@@ -64,7 +64,11 @@ int main()
         nebulae[i].runningTime = 0.0;
         nebulae[i].updateTime = 0.0;
 
-        nebulae[i].pos.x = windowDimensions[0] + i * 300 + 800;
+        nebulae[i].pos.x = windowDimensions[0] + i * 250 + 800;
+        if(i%3 == 0)
+        {
+            nebulae[i].pos.x += 75;
+        }
     }
 
     float finishLine{nebulae[sizeOfNebulae - 1].pos.x};
@@ -123,6 +127,11 @@ int main()
                     nebulae[i].updateTime = 0.0;
 
                     nebulae[i].pos.x = windowDimensions[0] + i * 300 + 800;
+
+                                if(i%3 == 0)
+                    {
+                        nebulae[i].pos.x += 75;
+                    }
                    
                 } 
                 collision = false;
